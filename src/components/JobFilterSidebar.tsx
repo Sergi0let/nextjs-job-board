@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 import { jobFilterSchema, JobFilterValues } from "@/lib/validation";
 import { Label } from "@radix-ui/react-label";
 import { redirect } from "next/navigation";
-import { Button } from "./ui/button";
+import FormSubmitButton from "./FormSubmitButton";
 import { Input } from "./ui/input";
 import Select from "./ui/select";
 
@@ -86,9 +86,7 @@ export default async function JobFilterSidebar({
             />
             <Label htmlFor="remote">Remote jobs</Label>
           </div>
-          <Button type="submit" className="w-full">
-            Filter jobs
-          </Button>
+          <FormSubmitButton className="w-full">Filter jobs</FormSubmitButton>
         </div>
       </form>
     </aside>
