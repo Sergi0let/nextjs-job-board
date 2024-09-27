@@ -1,11 +1,11 @@
+import { jobTypes } from "@/lib/jop-types";
+import prisma from "@/lib/prisma";
+import { jobFilterSchema } from "@/lib/validation";
 import { Label } from "@radix-ui/react-label";
+import { redirect } from "next/navigation";
+import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import Select from "./ui/select";
-import prisma from "@/lib/prisma";
-import { jobTypes } from "@/lib/jop-types";
-import { Button } from "./ui/button";
-import { jobFilterSchema } from "@/lib/validation";
-import { redirect } from "next/navigation";
 
 export async function filterJobs(formData: FormData) {
   "use server";
