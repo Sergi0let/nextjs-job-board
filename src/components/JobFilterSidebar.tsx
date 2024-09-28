@@ -29,7 +29,7 @@ interface JobFilterSidebarProps {
 }
 
 export default async function JobFilterSidebar({
-  defaultValues: { q, type, location, remote },
+  defaultValues,
 }: JobFilterSidebarProps) {
   const distinctLocation = (await prisma.job
     .findMany({
@@ -43,7 +43,7 @@ export default async function JobFilterSidebar({
 
   return (
     <aside className="md:w[260px] sticky top-0 h-fit rounded-lg border bg-background p-2">
-      <form action={filterJobs}>
+      <form action={filterJobs} key={JSON.stringify(defaultValues)}>
         <div className="space-y-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor="q">Search</Label>
@@ -51,12 +51,16 @@ export default async function JobFilterSidebar({
               id="q"
               name="q"
               placeholder="Title, company, etc."
-              defaultValue={q || ""}
+              defaultValue={defaultValues.q || ""}
             />
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="type">Type</Label>
-            <Select id="type" name="type" defaultValue={type || ""}>
+            <Select
+              id="type"
+              name="type"
+              defaultValue={defaultValues.type || ""}
+            >
               <option value="">All type</option>
               {jobTypes.map((jobType, i) => (
                 <option value={jobType} key={i}>
@@ -67,7 +71,11 @@ export default async function JobFilterSidebar({
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="location">Location</Label>
-            <Select id="location" name="location" defaultValue={location || ""}>
+            <Select
+              id="location"
+              name="location"
+              defaultValue={defaultValues.location || ""}
+            >
               <option value="">All location</option>
               {distinctLocation.map((location) => (
                 <option key={location} value={location}>
@@ -82,7 +90,7 @@ export default async function JobFilterSidebar({
               name="remote"
               id="remote"
               className="scale-125 accent-black"
-              defaultChecked={remote}
+              defaultChecked={defaultValues.remote}
             />
             <Label htmlFor="remote">Remote jobs</Label>
           </div>
