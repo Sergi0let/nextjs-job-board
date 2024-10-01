@@ -44,6 +44,7 @@ export default async function Home({
     location,
     remote: remote === "true",
   };
+
   return (
     <main className="m-auto my-10 max-w-5xl space-y-10 px-3">
       <div className="space-y-5 text-center">
