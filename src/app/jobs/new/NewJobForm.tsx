@@ -48,7 +48,7 @@ export default function NewJobForm() {
     });
     try {
       await createJobPosting(formData);
-    } catch (error) {
+    } catch {
       alert("Something wrong, try again");
     }
   }

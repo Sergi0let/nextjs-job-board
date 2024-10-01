@@ -1,4 +1,5 @@
 import JobDetails from "@/components/JobDetails";
+import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -22,7 +23,7 @@ const getJob = cache(async (slug: string) => {
 
 export async function generateMetadata({
   params: { slug },
-}): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const job = await getJob(slug);
 
   return {
@@ -30,12 +31,38 @@ export async function generateMetadata({
   };
 }
 
+export async function generateStaticParams() {
+  const jobs = await prisma.job.findMany({
+    where: { approved: true },
+    select: { slug: true },
+  });
+
+  return jobs.map(({ slug }) => slug);
+}
+
 export default async function Page({ params: { slug } }: PageProps) {
   const job = await getJob(slug);
+
+  const { applicationEmail, applicationUrl } = job;
+
+  const applicationLink = applicationEmail
+    ? `mailto:${applicationEmail}`
+    : applicationUrl;
+
+  if (!applicationLink) {
+    console.error("Job has not application🌐 link📭");
+  }
 
   return (
     <main className="m-auto my-10 flex max-w-5xl flex-col items-center gap-5 px-3 md:flex-row md:items-start">
       <JobDetails job={job} />
+      <aside>
+        <Button asChild>
+          <a className="w-40 md:w-fit" href={applicationLink as string}>
+            Apply now🚀
+          </a>
+        </Button>
+      </aside>
     </main>
   );
 }
