@@ -1,11 +1,9 @@
 "use client";
 
-import { useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function AdminNavbar() {
-  const { user, signOut } = useClerk();
   const router = useRouter();
 
   return (
@@ -15,12 +13,9 @@ export default function AdminNavbar() {
           Admin Dashboard
         </Link>
         <div className="space-x-2">
-          <span className="font-semibold">
-            {user?.primaryEmailAddress?.emailAddress}
-          </span>
+          <span className="font-semibold">some mail</span>
           <button
             onClick={async () => {
-              await signOut();
               router.push("/");
             }}
             className="underline"

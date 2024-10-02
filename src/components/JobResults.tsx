@@ -83,8 +83,8 @@ export default async function JobResults({
 
 interface PaginationProps {
   currentPage: number;
-  tatalPages: number;
   filterValues: JobFilterValues;
+  totalPages: number;
 }
 function Pagination({
   currentPage,
