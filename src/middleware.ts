@@ -29,6 +29,6 @@ async function isAuthenticated(req: NextRequest) {
   );
 }
 
-export const config = {
-  matcher: "/admin/:path",
-};
+// export const config = {
+//   matcher: "/admin/:path",
+// };
